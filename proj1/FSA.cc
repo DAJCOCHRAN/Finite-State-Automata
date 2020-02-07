@@ -28,7 +28,6 @@ FSA::FSA(ifstream &ifs)
 
     char word[2];
     ifs >> word; //first value from document which should be the alphabet
-    sigma = word;
     int index = 0; //to track each element we itterate through in the while
     while (ifs.good())
     {                        //while we are not to the end of the file
@@ -37,7 +36,7 @@ FSA::FSA(ifstream &ifs)
         switch (index)
         {
         case 0:
-            //do nothing
+            sigma = word;
             break;
         case 1:
             num_states = intVal;
@@ -46,7 +45,8 @@ FSA::FSA(ifstream &ifs)
             start_state = intVal;
             break;
         
-        case 3:
+        case 4:
+            accept_states.push_back(intVal);
             break;
         
         default:
@@ -72,8 +72,14 @@ void FSA::get_state_table(ifstream &ifs)
 void FSA::describe()
 {
     cout << "called stub version of describe()\n";
+    cout<< "Alphabet: " << sigma << endl;
     cout<< "Start state: " << start_state <<endl;
     cout<< "Total number of states: " << num_states <<endl;
+    cout<< "Accepting state(s): ";
+    for(int i=0; i < accept_states.size(); i++){
+       cout << accept_states[i] << " ";
+    }
+     cout<< endl;
 }
 
 // document me
