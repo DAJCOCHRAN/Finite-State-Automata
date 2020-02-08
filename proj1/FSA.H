@@ -13,10 +13,14 @@
 #pragma once
 
 #include <fstream>
-#include <string>
+#include<string> //check to remove
 #include <vector>
-
-class FSA {
+#include <algorithm>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <cstdlib>
+class FSA{
 public:
     FSA(std::ifstream &ifs);
     FSA() = delete;                 // disallow 0-param constructor
@@ -26,7 +30,8 @@ private:
     std::string sigma;               // alphabet
     int num_states;                  // number of states
     int start_state;
+    int total_accept;
     std::vector<int> accept_states;
     std::vector<std::vector<int>> state_table;
-    void get_state_table(std::ifstream &ifs);
+    void get_state_table(std::vector<std::vector<int>> sigmaList);
 };

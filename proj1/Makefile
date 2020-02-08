@@ -6,3 +6,6 @@ FSA.o: FSA.cc FSA.h
 
 proj1.o: proj1.cc
 	g++ -c proj1.cc
+
+clean:
+	@/bin/rm -f *~ \#*\# core* proj1 *.o
