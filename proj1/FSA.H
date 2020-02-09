@@ -31,6 +31,7 @@ private:
     int num_states;                  // number of states
     int start_state;
     int total_accept;
+    int currState;
     std::vector<int> accept_states;
     std::vector<std::vector<int>> state_table;
     void get_state_table(std::vector<std::vector<int>> sigmaList);

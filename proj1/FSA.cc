@@ -3,7 +3,7 @@
  * Implementation file for FSA class
  *
  * Author: Donald Cochran
- * Date:   2/2/2020
+ * Date:   2/8/2020
  */
 
 #include "FSA.h"
@@ -19,6 +19,7 @@ vector<char> placeChars(string input){
     }
     return output;
 }
+
 
 vector<int> makeIntList(string input){
     vector<char> charaList;
@@ -43,7 +44,6 @@ FSA::FSA(ifstream &ifs){
     { //If the file is not open we have a problem
         exit(EXIT_FAILURE);
     }
-    vector<vector<int>> temp;
     vector<int> intList; 
     string readLine;   
     int index = 0;
@@ -77,11 +77,11 @@ FSA::FSA(ifstream &ifs){
         if(index >= 4)
         {   
             intList = makeIntList(readLine);
-            temp.push_back(intList);
+            state_table.push_back(intList);
         }
         index++;
     }while(ifs.good());
-    get_state_table(temp);
+    get_state_table(state_table);
 }
 
 // document me
@@ -102,10 +102,9 @@ void FSA::get_state_table(std::vector<std::vector<int>> sigmaList)
         cout << endl;
 }
 
-// Description of machine variables from constructor
+// Description of machine variables from class constructor
 void FSA::describe()
 {
-    cout << "called stub version of describe()\n";
     cout<< "Alphabet: " << sigma << endl;
     cout<< "Total number of states: " << num_states <<endl;
     cout<< "Start state: " << start_state <<endl;
@@ -117,8 +116,48 @@ void FSA::describe()
     cout<< endl;
 }
 
-// document me
+// TRACE THROUGH THE 2 DIMENSIONAL VECTOR
 void FSA::trace(const string &in_string)
-{
-    cout << "called stub version of trace()\n";
-}
+{   //VAR DECLARATION OF INPUT VECTOR, CURRENT RUN-TIME STATE, AND BOOL TO BREAK LOOPS
+    vector<char>in_vector = placeChars(in_string);
+    currState = start_state - 1; //vector's index always start with 0
+    bool breakMe = false;
+    //WHILE INPUT VECTOR IS NOT EMPTY
+    while(!in_vector.empty())
+    {   //CONDITIONAL SWITCHING OF ab CHARS AND EMPTYING INPUT VECTOR
+        switch (in_vector[0])
+        {
+        case 'a':
+            currState = state_table[currState][0] - 1;
+            in_vector.erase(in_vector.begin());
+            break;
+        case 'b':
+            currState = state_table[currState][1] - 1;
+            in_vector.erase(in_vector.begin());
+            break;
+        //GIVE UP EMPTYING AND TRY AGAIN
+        default:
+            cout << "INVALID CHARACTERS!!"<<endl;
+            breakMe = true;
+            break;
+        }
+        if(breakMe){
+            break;
+        }
+    }
+    //REVERT CURRENT STATE VALUE BACK, DONE WITH VECTOR ITERATION
+    currState++; 
+    for(int i=0; i<num_states; i++){
+        if(currState == accept_states[i]){
+            cout << "Language Accepted!!!" << endl;
+            break;
+        }
+        if(i == num_states-1)
+        {
+            cout << "Valid Input Language, But Not Accepted!!!" << endl;
+            for(int i=0; i<state_table.size(); i++){
+                cout << state_table[i].size() << endl;
+            }
+        }
+    }
+}   

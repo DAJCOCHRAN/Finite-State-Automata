@@ -3,7 +3,7 @@
 using namespace std;
 
 int main(int argc, char** argv)
-{
+{ 
     // command-line argument munging
     if (argc != 2) {
         cerr << "usage: " << argv[0] << " fsa_file\n"
@@ -29,11 +29,13 @@ int main(int argc, char** argv)
 
     // prompt-read-eval loop
     cout << "Enter input strings, one line at a time:\n";
+    cout<<"type finish to end the program"<<endl;
     while (true) {
         cout << "? ";
         string in_string;
         getline(cin, in_string);
         if (!cin) break;
+        if (in_string == "finish") break;
         fsa.trace(in_string);
     }
 }
