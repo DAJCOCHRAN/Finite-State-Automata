@@ -13,22 +13,24 @@
 #pragma once
 
 #include <fstream>
-#include<string> //check to remove
+#include <string> //check to remove
 #include <vector>
 #include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <cstdlib>
-class FSA{
+class FSA
+{
 public:
     FSA(std::ifstream &ifs);
-    FSA() = delete;                 // disallow 0-param constructor
+    FSA() = delete; // disallow 0-param constructor
     void describe();
-    void trace(const std::string& in_string);
+    void trace(const std::string &in_string);
+
 private:
-    std::string sigma;               // alphabet
-    int num_states;                  // number of states
+    std::string sigma; // alphabet
+    int num_states;    // number of states
     int start_state;
     int total_accept;
     int currState;
