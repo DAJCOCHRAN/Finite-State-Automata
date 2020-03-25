@@ -26,9 +26,8 @@ struct Table_entry
     char direction; // 'L' or 'R'
 };
 
-// I/O for Table_entry
-std::istream& operator>>(std::istream &is, Table_entry& entry);
-std::ostream& operator<<(std::ostream &os, const Table_entry& entry);
+
+
 
 // deterministic Turing machine
 class TM {
@@ -39,7 +38,11 @@ public:
     TM() = delete;                      // disallow 0-param ctor
     void describe();
     bool trace(std::string& in_string);
+    // I/O for Table_entry
+    friend std::ifstream& operator>>(std::ifstream &is, Table_entry& entry);
+    friend std::ostream& operator<<(std::ostream &os, const Table_entry& entry);
 private:
+    Table_entry tempTable;         //Table entry temp to load into state_table;
     std::string sigma;             // input alphabet
     std::string gamma;             // tape alphabet
     int num_states;                // number of states

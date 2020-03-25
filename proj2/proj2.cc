@@ -9,7 +9,7 @@
  * input, saying whether the TM accepts the string.  If the string is
  * accepted, then its trail through the TM is printed as well.
  *
- * The program does no error-checking on the input file.
+ * The program does no error-checking on the input file. 
  *
  * Author: A. G. Werschulz
  * Date:   20 Feb 2020
@@ -39,17 +39,17 @@ int main(int argc, char** argv)
 
     // initialize the TM and print its description
     TM tm(tm_data);
-    cout << "Turing machine definition:\n";
     tm.describe();
-    cout << endl;
 
     // prompt-read-eval loop
-    cout << "Enter input strings, one line at a time:\n";
+    cout << "Enter proper input strings or exit to leave.  one line at a time:\n";
     while (true) {
         cout << "? ";
         string in_string;
         getline(cin, in_string);
         if (!cin) break;
+        if (in_string == "exit") //exit
+            return 3;
         bool success = tm.trace(in_string);
         if (success) cout << "accept!\n";
         else cout << "reject!\n";
