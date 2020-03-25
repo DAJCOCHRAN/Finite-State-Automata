@@ -7,11 +7,10 @@
  *
  * Header file for TM class
  *
- * Author: A. G. Werschulz
- * Date:   20 Feb 2020
+ * Author: Donald Cochran
+ * Date:   23 Mar 2020
  *
  **********************************************************************/
-
 #pragma once
 
 #include <fstream>
@@ -25,10 +24,6 @@ struct Table_entry
     char new_char;
     char direction; // 'L' or 'R'
 };
-
-
-
-
 // deterministic Turing machine
 class TM {
 public:
@@ -48,8 +43,4 @@ private:
     int num_states;                // number of states
     char blank;                    // how we represent a blank
     std::vector<std::vector<Table_entry>> state_table; // transition table
-
-    // helper function that nicely prints a single configuration
-    static void print_config(int state, unsigned int pos,
-                             const std::string& in_string);
 };

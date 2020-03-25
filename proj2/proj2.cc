@@ -11,8 +11,8 @@
  *
  * The program does no error-checking on the input file. 
  *
- * Author: A. G. Werschulz
- * Date:   20 Feb 2020
+ * Author: Donald Cochran
+ * Date:   23 Mar 2020
  *
  **********************************************************************/
 
